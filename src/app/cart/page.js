@@ -41,7 +41,9 @@ const CartPage = () => {
           className="flex justify-between items-center border-b py-4"
         >
           {/* Product Image */}
-          <img
+          <Image
+            width={64}
+            height={64}             
             src={item.image} // Render product image
             alt={item.title}
             className="w-16 h-16 object-cover rounded"
