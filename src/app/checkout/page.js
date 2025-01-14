@@ -1,8 +1,35 @@
-"use client"
+
+"use client";
+
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("credit");
+  const [cartItems, setCartItems] = useState([]);
+  const [subtotal, setSubtotal] = useState(0);
+  const [shipping] = useState(10); // Flat shipping rate
+  const [tax, setTax] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    // Fetch cart data from localStorage
+    const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCartItems(storedCart);
+
+    // Calculate order summary
+    const subtotal = storedCart.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0
+    );
+    setSubtotal(subtotal.toFixed(2));
+
+    const tax = subtotal * 0.1; // Assume 10% tax
+    setTax(tax.toFixed(2));
+
+    const total = subtotal + shipping + tax;
+    setTotal(total.toFixed(2));
+  }, [shipping]);
 
   return (
     <div className="font-[sans-serif] bg-gray-900 text-white min-h-screen py-8">
@@ -110,28 +137,25 @@ function Checkout() {
             <ul className="space-y-3 text-gray-300">
               <li className="flex justify-between">
                 <span>Subtotal</span>
-                <span>$250.00</span>
+                <span>${subtotal}</span>
               </li>
               <li className="flex justify-between">
                 <span>Shipping</span>
-                <span>$10.00</span>
+                <span>${shipping.toFixed(2)}</span>
               </li>
               <li className="flex justify-between">
                 <span>Tax</span>
-                <span>$25.00</span>
+                <span>${tax}</span>
               </li>
               <li className="border-t border-gray-600 mt-4 pt-4 flex justify-between font-bold text-white">
                 <span>Total</span>
-                <span>$285.00</span>
+                <span>${total}</span>
               </li>
             </ul>
             <Link href="/success">
-            <button
-              className="mt-6 w-full py-3 bg-orange-500 text-white rounded-lg font-bold hover:bg-orange-600"
-             
-            >
-              Complete Purchase
-            </button>
+              <button className="mt-6 w-full py-3 bg-orange-500 text-white rounded-lg font-bold hover:bg-orange-600">
+                Complete Purchase
+              </button>
             </Link>
             <p className="text-xs text-gray-400 text-center mt-2">
               By completing your purchase you agree to our{" "}
