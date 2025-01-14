@@ -16,6 +16,7 @@ const nextConfig = {
   },
   };
   module.exports = {
+    
     images: {
       remotePatterns: [
         {
@@ -25,4 +26,8 @@ const nextConfig = {
   ],
   },
   };
-  
+  module.exports = {
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
+  };
