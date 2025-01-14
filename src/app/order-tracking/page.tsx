@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 function Tracking() {
-  const [currentStage, setCurrentStage] = useState(2); // Change this value to set the current stage
+  const [currentStage] = useState(2); // Change this value to set the current stage
 
   const stages = [
     'Order Placed',

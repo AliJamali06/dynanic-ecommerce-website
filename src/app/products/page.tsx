@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -59,7 +59,9 @@ const AllProducts = () => {
               className="bg-gray-100 overflow-hidden rounded-lg shadow-lg"
             >
               <div className="relative w-full h-[300px]">
-                <img
+                <Image
+                  width={400}
+                  height={300}
                   src={product.image}
                   alt={product.title}
                   className="object-cover rounded-t-lg w-full h-full"
